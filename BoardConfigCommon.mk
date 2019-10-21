@@ -34,8 +34,11 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
 
 # Audio
+BOARD_USES_ALSA_AUDIO := true
 USE_LEGACY_LOCAL_AUDIO_HAL := true
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+USE_XML_AUDIO_POLICY_CONF := 1
+USE_CUSTOM_AUDIO_POLICY := 1
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -53,6 +56,9 @@ AUDIO_FEATURE_ENABLED_FM := true
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
+# Filesystem
+TARGET_FS_CONFIG_GEN += device/sony/rhine-common/config.fs
+
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_rhine
 
@@ -65,7 +71,6 @@ TARGET_LD_SHIM_LIBS := \
 	/system/vendor/bin/credmgrd|/system/vendor/lib/libshims_signal.so \
 	/system/vendor/bin/iddd|/system/vendor/lib/libshims_idd.so \
 	/system/vendor/bin/suntrold|/system/vendor/lib/libshims_signal.so \
-	/system/lib/hw/camera.vendor.qcom.so|/system/vendor/lib/libsonycamera.so \
 	/system/lib/hw/camera.vendor.qcom.so|/system/vendor/lib/libshim_camera.so \
 	/system/lib/hw/camera.vendor.qcom.so|/system/vendor/lib/libshim_cald.so \
 	/system/lib/hw/camera.vendor.qcom.so|libsensor.so \
@@ -74,7 +79,8 @@ TARGET_LD_SHIM_LIBS := \
 	/system/lib/libcammw.so|libsensor.so \
 	/system/lib/libsomc_chokoballpal.so|/system/vendor/lib/libshim_camera.so \
 	/system/vendor/bin/mm-qcamera-daemon|/system/vendor/lib/libc_util.so \
-	/system/vendor/bin/mm-qcamera-daemon|libandroid.so
+	/system/vendor/bin/mm-qcamera-daemon|libandroid.so \
+	/system/vendor/bin/iddd|libboringssl-compat.so \
 
 # Platform props
 TARGET_SYSTEM_PROP += device/sony/rhine-common/system.prop
@@ -89,6 +95,7 @@ BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
+WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true
@@ -97,6 +104,9 @@ BOARD_PROVIDES_LIBRIL := true
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+
+# Partition information
+BOARD_ROOT_EXTRA_FOLDERS := idd lta-label
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/sony/rhine-common/rootdir/fstab.full
