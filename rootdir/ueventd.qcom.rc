@@ -149,7 +149,7 @@
 /dev/hidraw2                                     0666  system  system
 
 # FM
-/sys/module/radio_iris_transport/parameters/fmsmd_set 0660 system system
+/sys/module/radio_iris_transport/parameters           fmsmd_set 0660 system system
 
 # MHL
 /sys/devices/f9967000.i2c/i2c-4/4-0072/mhl/sii8334    mouse_mode   0660  system  system
@@ -174,8 +174,8 @@
 /sys/devices/mdp.0/qcom,mdss_fb_primary.174/leds/lcd-backlight  max_brightness      0664 system system
 
 # TA
-/dev/block/bootdevice/by-name/TA 0770  tad      tad
-/dev/block/platform/msm_sdcc.1/by-name/TA 0770 tad tad
+/dev/block/bootdevice/by-name/TA 0770  system      root
+/dev/block/platform/msm_sdcc.1/by-name/TA 0770 system root
 
 /dev/cam                  0660   root       camera
 /dev/pmem                 0660   system     graphics

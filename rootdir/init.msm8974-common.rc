@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-import /init.sony.rc
 import /init.sony.usb.rc
 
 on early-init
@@ -304,15 +303,10 @@ on post-fs-data
 
     mkdir /data/audio 0770 media audio
 
-    # Create /data/time folder for time-services
-    mkdir /data/time 0700 system system
-
     # Enable Power save functionality for modem
     setprop persist.radio.add_power_save 1
 
     chown system /dev/block/platform/msm_sdcc.1/by-name
-
-    setprop vold.post_fs_data_done 1
 
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
@@ -340,6 +334,9 @@ on post-fs-data
     mkdir /cache/pc 0770 radio system
 
     start wvkbd_installer
+
+    setprop vold.post_fs_data_done 1
+    setprop vold.decrypt trigger_restart_framework
 
 on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
